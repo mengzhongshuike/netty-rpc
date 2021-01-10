@@ -1,7 +1,6 @@
 package com.ygd.rpcclient.decoder;
 
 import com.alibaba.fastjson.JSON;
-import com.ygd.rpc.common.request.RpcRequest;
 import com.ygd.rpc.common.response.RpcResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,7 +20,6 @@ public class JsonDecoder extends LengthFieldBasedFrameDecoder {
         ByteBuf msg = (ByteBuf) super.decode(ctx, in);
         byte[] bytes = new byte[msg.readableBytes()];
         msg.readBytes(bytes);
-        RpcResponse rpcResponse = JSON.parseObject(bytes, RpcResponse.class);
-        return rpcResponse;
+        return JSON.<RpcResponse>parseObject(bytes, RpcResponse.class);
     }
 }
